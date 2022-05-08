@@ -1,0 +1,26 @@
+
+<%= form_with model: [ @post, @post.comments.build ] do |form| %>
+
+    <%= form.text_field :body %>
+    <% @post.errors.full_messages_for(:body).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+
+  <div>
+    <%= form.text_field :user_id, value: current_user.id, class:'d-none' %>
+    <% @post.errors.full_messages_for(:user_id).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.text_field :post_id, value: @post.id, class:'d-none' %>
+    <% @post.errors.full_messages_for(:post_id).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
+  <p>
+    <%= form.submit 'add comment', :class => 'btn btn-primary' %>
+  </p>
+<% end %>

@@ -1,0 +1,38 @@
+<div class="container">  
+    <% users.each do |user| %>
+      <div class="container">
+        <div class="row mb-5">
+            <div class="col-4 border border-2 p-2">
+                <div class="avatar">
+                    <%= user_avatar(user, '200') %>
+                </div>
+            </div>
+
+            <div class="col-8 border border-2 p-2">
+                <div class="basic-info">
+                  <h2 class="username"><%= user.username %></h2>
+                  <ul>
+                    <li class="profile-stats"><%= user.followers.count %> followers</li>
+                    <li class="profile-stats"><%= user.following.count %> following</li>
+                  </ul> <br>
+
+                    <% if !followed?(user.id) %>
+                      <%= form_tag follow_user_path, method: :post do %>
+                        <%= hidden_field_tag :follow_id, user.id %>
+                        <%= submit_tag "Follow", class: "btn btn-primary"%>
+                      <% end %>
+                    <% else %>
+                      <%= form_tag unfollow_user_path, method: :post do %>
+                        <%= hidden_field_tag :follow_id, user.id %>
+                        <%= submit_tag "Unfollow", class: "btn btn-dark"%>
+                      <% end %>
+                    <% end %>
+                </div>   
+
+                <h4 class="name"><%= 'name: ' + user.first_name.to_s + ' ' + user.last_name.to_s %></h4>
+            </div>
+        </div>
+    <% end %>
+    <%= paginate users %>
+</div>
+    

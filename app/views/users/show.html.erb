@@ -1,0 +1,72 @@
+<div class="container">
+  <div class="row mb-5">
+    <div class="col-4 border border-2 p-2">
+      <div class="avatar">
+          <%= user_avatar(@user, '200') %>
+      </div>
+    </div>
+
+      <div class="col-8 border border-2 p-2">
+
+        <div class="basic-info">
+          <h2 class="username"><%= @user.username %></h2>
+
+          <ul>
+            <li class="profile-stats"><%= @posts.count %> posts</li>
+            <li class="profile-stats"><%= @user.followers.count %> <%= link_to 'followers', followers_path(@user) %></li>
+            <li class="profile-stats"><%= @user.following.count %> <%= link_to 'following', following_path(@user) %></li>
+          </ul> <br>
+          <% if !same_user?(@user.id) %>
+            <% if !followed?(@user.id) %>
+            
+              <%= form_tag follow_user_path, method: :post do %>
+                <%= hidden_field_tag :follow_id, @user.id %>
+                <%= submit_tag "Follow", class: "btn btn-dark"%>
+              <% end %>
+
+            <% else %>
+              <%= form_tag unfollow_user_path, method: :post do %>
+                <%= hidden_field_tag :follow_id, @user.id %>
+                <%= submit_tag "Unfollow", class: "btn btn-dark"%>
+              <% end %>
+            <% end %>
+
+          <% end %>
+            
+
+          <h4 class="name"><%= 'name: ' + @user.first_name.to_s + ' ' + @user.last_name.to_s %></h4>
+          <h5 class="bio"><%= 'bio: ' + @user.bio.to_s %></h5> <br>
+          <% if same_user?(@user.id)%>
+            <a class="edit-profile" href="<%= edit_user_registration_path(@user) %>">
+              <button>Edit Profile</button>
+            </a>
+          <% end %>
+        </div>
+
+      </div>
+  </div>
+  <div class="container border border-3 p-4">
+    <p>Your posts</p>
+    <div class="row">
+
+      <% @posts.each do |post|%>
+
+        <div class="col-4">
+          <div class="user-post">
+            <%= link_to image_tag(post.image, :width => 'auto', :height => '200', :class => 'rounded-3'), post_path(post) %>
+          </div>
+        </div>
+
+      <% end %>
+
+    </div>
+  </div>
+
+</div>
+
+
+
+
+
+
+    

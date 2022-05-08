@@ -1,0 +1,84 @@
+
+  
+  <p><%= image_tag(@post.image, :width => '50%', :height => 'auto', :class => 'rounded-3 ') %></p>
+  
+  <div class="likes m-2">
+    <p><% if !liked?(@post) %>
+      <%= form_tag like_post_path, method: :post do %>
+        <%= hidden_field_tag :post_id, @post.id %>
+        <%= submit_tag "Like", class: "btn btn-primary"%>
+      <% end %>
+    <% else %>
+      <%= form_tag unlike_post_path, method: :post do %>
+        <%= hidden_field_tag :post_id, @post.id %>
+        <%= submit_tag "Unlike", class: "btn btn-secondary"%>
+      <% end %>
+    <% end %>
+    <%= @post.likes.count %></p>
+  </div>
+    
+  
+  
+  <p><%= @post.description %></p>
+  <ul>
+    <%if can_edit?(@post.user.id)%>
+      <li><%= link_to "Edit", edit_post_path(@post) %></li>
+      <li><%= link_to "Destroy", post_path(@post), data: {
+                        turbo_method: :delete,
+                        turbo_confirm: "Are you sure?"
+                      } %></li>
+    <% end %>              
+  </ul>
+  
+  <h2>Add a comment:</h2>
+  <%= form_with model: [ @post, @post.comments.build ] do |form| %>
+  
+      <%= form.text_field :body %>
+      <% @post.errors.full_messages_for(:body).each do |message| %>
+        <div><%= message %></div>
+      <% end %>
+  
+    <div>
+      <%= form.text_field :user_id, value: current_user.id, class:'d-none' %>
+      <% @post.errors.full_messages_for(:user_id).each do |message| %>
+        <div><%= message %></div>
+      <% end %>
+    </div>
+  
+    <div>
+      <%= form.text_field :post_id, value: @post.id, class:'d-none' %>
+      <% @post.errors.full_messages_for(:post_id).each do |message| %>
+        <div><%= message %></div>
+      <% end %>
+    </div>
+  
+    <p>
+      <%= form.submit 'add comment', :class => 'btn btn-primary' %>
+    </p>
+  <% end %>
+  
+  <h2>Comments</h2>
+  <% @comments.each do |comment| %>
+  
+      <div class="container">
+        <div class="row">
+          <div class="col-2">
+            <div class="avatar">
+              <%= user_avatar(comment.user, '50') %>
+            </div>
+          </div>
+          <div class="col-3">
+            <h5 class="username"><%= comment.user.username %></h5>
+  
+            <p>
+              <%= '> ' + comment.body %>
+            </p>
+          </div>
+        </div>
+      </div>
+  
+    <% end %>
+
+
+  
+  

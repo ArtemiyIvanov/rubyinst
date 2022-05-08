@@ -1,0 +1,19 @@
+  <div class='card-body'>
+    <p>
+      
+        <div class="avatar">
+          <% if @post.user.avatar.attached? %>
+            <%= image_tag(@post.user.avatar, :width => '5%', :height => 'auto', :class => 'rounded-3') %>
+          <% else %>
+            <%= image_tag(defoult, :width => '5%', :height => 'auto', :class => 'rounded-3') %>
+          <% end %>
+        </div>
+
+        <h4 class="username"><%= @post.user.username %></h4>
+    </p>
+
+    <p>
+      <strong>Comment:</strong>
+      <%= comment.body %>
+    </p>
+  </div>

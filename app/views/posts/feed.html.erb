@@ -1,0 +1,6 @@
+<% if !@users.any?%>
+    <h4>Empty feed :( </h4>
+    <p> You should follow someone</p>
+<% else %>
+    <%= render "posts", posts: @feed_posts%>
+<% end %>

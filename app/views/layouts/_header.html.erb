@@ -1,0 +1,46 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <%= link_to 'Rubyinst', root_path, class: "navbar-brand" %>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      
+      
+        <% if current_user %>
+
+          <li class="nav-item active"> 
+            <%= link_to 'All Posts', posts_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item active"> 
+            <%= link_to 'Feed', feed_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item active"> 
+            <%= link_to 'Profile', user_path(current_user), class: "nav-link" %>
+          </li>
+          <li class="nav-item active"> 
+            <%= link_to 'Create post', new_post_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item active"> 
+            <%= link_to 'Sign out', destroy_user_session_path, class: "nav-link", data: {
+                    turbo_method: :delete
+                  } %>
+                  
+          </li>
+          <li><%= link_to "Back", '../', class: "nav-link" %></li>
+          <% else %>
+            <li class="nav-item active"> 
+              <%= link_to 'Sign up', new_user_registration_path, class: "nav-link" %>
+            </li>
+            <li class="nav-item active">
+              <%= link_to 'Sign in', new_user_session_path, class: "nav-link" %>
+            </li>
+          <% end %>
+    </ul>
+    <%= form_tag search_users_path, class: "form-inline my-2 my-lg-0", method: :get do %>
+      <%= text_field_tag 'query', nil, placeholder: "Search" %>
+      <%= submit_tag "Search", class: "btn btn-outline-success my-2 my-sm-0"%>
+    <% end %>
+  </div>
+</nav>
