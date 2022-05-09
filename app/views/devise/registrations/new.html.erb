@@ -16,11 +16,17 @@
   <div class="field">
     <%= f.label :first_name %><br />
     <%= f.text_field :first_name %>
+    <% resource.errors.full_messages_for(:first_name).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
   </div>
 
   <div class="field">
     <%= f.label :last_name %><br />
     <%= f.text_field :last_name %>
+    <% resource.errors.full_messages_for(:last_name).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
   </div>
   <div class="field">
     <%= f.label :gender %><br />
@@ -30,6 +36,9 @@
   <div class="field">
     <%= f.label :email %><br />
     <%= f.email_field :email, autocomplete: "email" %>
+    <% resource.errors.full_messages_for(:email).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
   </div>
 
 

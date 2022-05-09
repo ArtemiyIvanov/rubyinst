@@ -28,6 +28,10 @@
                   
           </li>
           <li><%= link_to "Back", :back, class: "nav-link" %></li>
+            <%= form_tag search_users_path, class: "form-inline my-2 my-lg-0", method: :get do %>
+            <%= text_field_tag 'query', nil, placeholder: "username" %>
+            <%= submit_tag "Search", class: "btn btn-outline-success my-2 my-sm-0"%>
+            <% end %>
           <% else %>
             <li class="nav-item active"> 
               <%= link_to 'Sign up', new_user_registration_path, class: "nav-link" %>
@@ -37,9 +41,6 @@
             </li>
           <% end %>
     </ul>
-    <%= form_tag search_users_path, class: "form-inline my-2 my-lg-0", method: :get do %>
-      <%= text_field_tag 'query', nil, placeholder: "username" %>
-      <%= submit_tag "Search", class: "btn btn-outline-success my-2 my-sm-0"%>
-    <% end %>
+    
   </div>
 </nav>
