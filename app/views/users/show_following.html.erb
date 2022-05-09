@@ -1,1 +1,5 @@
-<%= render "users_table", users: @following %>
+<% if !@following.any?%>
+    <h4>You're not following to anyone</h4>
+<% else %>
+    <%= render "users_table", users: @following %>
+<% end %>

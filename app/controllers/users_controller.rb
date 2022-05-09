@@ -6,6 +6,9 @@ class UsersController < ApplicationController
         @posts = @user.posts.order(created_at: :desc)
     end
 
+    def edit
+      @user = User.find(params[:id])
+    end
 
     def update
         @user = User.find(params[:id])

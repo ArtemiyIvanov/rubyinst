@@ -6,7 +6,7 @@ class User < ApplicationRecord
   has_one_attached :avatar
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-  genders = ['man', 'women']
+  genders = ['man', 'woman']
   validates :username, presence: true, length: { maximum: 40 }
   validates_uniqueness_of :username, :email
   validates :gender, inclusion: { in: genders }

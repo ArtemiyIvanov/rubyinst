@@ -4,17 +4,6 @@
     <%= render "devise/shared/error_messages", resource: resource %>
   </div>
 
-    <%= user_avatar(@user, '50%') %>
-
-
-    <div class="field">
-      <%= f.label :avatar %>
-      <%= f.file_field :avatar %>
-      <% resource.errors.full_messages_for(:avatar).each do |message| %>
-        <div><%= message %></div>
-      <% end %>
-    </div>
-
   <div class="field">
     <%= f.label :username %><br />
     <%= f.text_field :username, autofocus: true %>
@@ -57,7 +46,7 @@
   </div>
 
   <div class="actions">
-    <%= f.submit "Sign up" %>
+    <%= f.submit "Sign up", class: "btn btn-primary m-2" %>
   </div>
 <% end %>
 

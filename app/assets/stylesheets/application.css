@@ -21,6 +21,10 @@
 
     margin-top: 20px;
 }
+.likes .btn{
+    float: left;
+    margin-right: 10px;
+}
 .avatar {
     float: left;
 }

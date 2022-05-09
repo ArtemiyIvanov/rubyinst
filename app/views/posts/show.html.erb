@@ -1,25 +1,82 @@
-
-  
-  <p><%= image_tag(@post.image, :width => '50%', :height => 'auto', :class => 'rounded-3 ') %></p>
-  
-  <div class="likes m-2">
-    <p><% if !liked?(@post) %>
-      <%= form_tag like_post_path, method: :post do %>
-        <%= hidden_field_tag :post_id, @post.id %>
-        <%= submit_tag "Like", class: "btn btn-primary"%>
-      <% end %>
-    <% else %>
-      <%= form_tag unlike_post_path, method: :post do %>
-        <%= hidden_field_tag :post_id, @post.id %>
-        <%= submit_tag "Unlike", class: "btn btn-secondary"%>
-      <% end %>
-    <% end %>
-    <%= @post.likes.count %></p>
-  </div>
+<div class="container">
+  <div class="row">
+    <div class="col-8">
+        <div class="post">
+          <div class="row border border-3">
     
-  
-  
-  <p><%= @post.description %></p>
+            <div class="col-2 p-2">
+              <div class="avatar">
+                <%=link_to user_avatar(@post.user, '80'), user_path(@post.user)%>
+              </div>
+            </div>
+    
+            <div class="col-10 ">
+              <div class="">
+                <h4><%= link_to @post.user.username, user_path(@post.user), class: "text-dark p-3" %></h4>
+              </div>
+
+              <% if !same_user?(@post.user.id) %>
+                <% if !followed?(@post.user.id) %>
+
+                  <%= form_tag follow_user_path, method: :post do %>
+                    <%= hidden_field_tag :follow_id, @post.user.id %>
+                    <%= submit_tag "Follow", class: "btn btn-primary"%>
+                  <% end %>
+
+                <% else %>
+                  <%= form_tag unfollow_user_path, method: :post do %>
+                    <%= hidden_field_tag :follow_id, post.user.id %>
+                    <%= submit_tag "Unfollow", class: "btn btn-secondary"%>
+                  <% end %>
+                <% end %>
+
+              <% end %>
+            </div>
+    
+          </div>
+    
+          <div class="row border border-2">
+            <div class="">
+              <%= image_tag(@post.image, :width => 'auto', :height => '400', :class => 'rounded-3 ') %>
+            </div>
+              <div class="likes m-2">
+                <% if !liked?(@post) %>
+                  <%= form_tag like_post_path, method: :post do %>
+                    <%= hidden_field_tag :post_id, @post.id %>
+                    <%= submit_tag "Like", class: "btn btn-primary"%>
+                  <% end %>
+                <% else %>
+                  <%= form_tag unlike_post_path, method: :post do %>
+                    <%= hidden_field_tag :post_id, @post.id %>
+                    <%= submit_tag "Unlike", class: "btn btn-secondary"%>
+                  <% end %>
+                <% end %>
+                <h5><%= @post.likes.count %></h5>
+              </div>
+
+            <div class="">
+              <%= simple_format @post.description %>
+            </div>
+            <p><%= time_ago_in_words @post.created_at %> ago </p>
+          </div>
+    
+        </div> <br>
+    </div>
+    <div class="col-4 ">
+      <div class="row border border-1 p-1 m-1">
+        <div class="col-4 p-3">
+          <div class="avatar">
+              <%= link_to user_avatar(current_user, '80'), user_path(current_user) %>
+          </div>
+        </div>
+        <div class="col-8 p-3">
+          <p><%= link_to current_user.username, user_path(current_user), class: "text-dark p-3" %><p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
   <ul>
     <%if can_edit?(@post.user.id)%>
       <li><%= link_to "Edit", edit_post_path(@post) %></li>
@@ -30,7 +87,7 @@
     <% end %>              
   </ul>
   
-  <h2>Add a comment:</h2>
+  <h3>Add a comment:</h3>
   <%= form_with model: [ @post, @post.comments.build ] do |form| %>
   
       <%= form.text_field :body %>
@@ -53,31 +110,35 @@
     </div>
   
     <p>
-      <%= form.submit 'add comment', :class => 'btn btn-primary' %>
+      <%= form.submit 'comment', :class => 'btn btn-primary m-2' %>
     </p>
   <% end %>
-  
-  <h2>Comments</h2>
-  <% @comments.each do |comment| %>
-  
-      <div class="container">
-        <div class="row">
-          <div class="col-2">
-            <div class="avatar">
-              <%= user_avatar(comment.user, '50') %>
+<div class="container">
+  <div class="row">
+    <div class="col-8">
+      <h3>Comments</h3>
+      <% @comments.each do |comment| %>
+          <div class="container border border-1 m-2">
+            <div class="row p-2">
+              <div class="col-2 ">
+                <div class="avatar ">
+                  <%= link_to user_avatar(comment.user, '60'), user_path(comment.user) %> 
+                </div>
+              </div>
+              <div class="col-3">
+                <h5 class="username"><%= link_to comment.user.username, user_path(comment.user), class: "text-dark p-3" %></h5>
+
+                <p>
+                  <%= '> ' + comment.body %>
+                </p>
+              </div>
             </div>
           </div>
-          <div class="col-3">
-            <h5 class="username"><%= comment.user.username %></h5>
-  
-            <p>
-              <%= '> ' + comment.body %>
-            </p>
-          </div>
-        </div>
+
+        <% end %>
       </div>
-  
-    <% end %>
+    </div>
+</div>
 
 
   

@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   post "unlike/post", to: "posts#unlike", as: "unlike_post"
   post "follow/user", to: "users#follow", as: "follow_user"
   post "unfollow/user", to: "users#unfollow", as: "unfollow_user"
-  resources :users, only: [:index, :show, :edit, :update, :sign_in, :sign_out, :sign_up]
+  resources :users, only: [:index, :show, :edit, :update]
   resources :posts do
     resources :comments
   end

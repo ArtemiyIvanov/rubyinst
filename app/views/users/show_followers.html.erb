@@ -1,1 +1,5 @@
-<%= render "users_table", users: @followers %>
+<% if !@followers.any?%>
+    <h4>No followers</h4>
+<% else %>
+    <%= render "users_table", users: @followers %>
+<% end %>
