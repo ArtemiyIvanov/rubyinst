@@ -8,9 +8,9 @@
 
 
     <div class="field">
-      <%= form.label :avatar %>
-      <%= form.file_field :avatar %>
-      <% current_user.errors.full_messages_for(:avatar).each do |message| %>
+      <%= f.label :avatar %>
+      <%= f.file_field :avatar %>
+      <% resource.errors.full_messages_for(:avatar).each do |message| %>
         <div><%= message %></div>
       <% end %>
     </div>

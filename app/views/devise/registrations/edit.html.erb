@@ -9,7 +9,7 @@
     <div class="form-group">
       <%= f.label :avatar %>
       <%= f.file_field :avatar %>
-      <% current_user.errors.full_messages_for(:avatar).each do |message| %>
+      <% resource.errors.full_messages_for(:avatar).each do |message| %>
         <div><%= message %></div>
       <% end %>
     </div>
