@@ -4,13 +4,13 @@
         <div class="row mb-5">
             <div class="col-4 border border-2 p-2">
                 <div class="avatar">
-                    <%= user_avatar(user, '200') %>
+                    <%= link_to user_avatar(user, '200'), user_path(user) %>
                 </div>
             </div>
 
             <div class="col-8 border border-2 p-2">
                 <div class="basic-info">
-                  <h2 class="username"><%= user.username %></h2>
+                  <h2 class="username"><%= link_to user.username, user_path(user) %></h2>
                   <ul>
                     <li class="profile-stats"><%= user.followers.count %> <%= link_to 'followers', followers_path(user) %></li>
                     <li class="profile-stats"><%= user.following.count %> <%= link_to 'following', following_path(user) %></li>

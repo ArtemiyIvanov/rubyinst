@@ -1,4 +1,4 @@
-<h3 class="m-2 p-2"><%= link_to @user.username, user_path(@user) %> following: </h3>
+<h3 class="m-2 p-2"><%= link_to @user.username, user_path(@user) %>'s following: </h3>
 <% if !@following.any?%>
     <h4>No following</h4>
 <% else %>
