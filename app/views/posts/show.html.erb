@@ -4,15 +4,15 @@
         <div class="post">
           <div class="row border border-3">
     
-            <div class="col-2 p-2">
+            <div class="col-2 bg-dark p-2">
               <div class="avatar">
                 <%=link_to user_avatar(@post.user, '80'), user_path(@post.user)%>
               </div>
             </div>
     
-            <div class="col-10 ">
+            <div class="col-10 bg-dark">
               <div class="">
-                <h4><%= link_to @post.user.username, user_path(@post.user), class: "text-dark p-3" %></h4>
+                <h4><%= link_to @post.user.username, user_path(@post.user), class: "text-light p-3" %></h4>
               </div>
 
               <% if !same_user?(@post.user.id) %>
@@ -25,7 +25,7 @@
 
                 <% else %>
                   <%= form_tag unfollow_user_path, method: :post do %>
-                    <%= hidden_field_tag :follow_id, post.user.id %>
+                    <%= hidden_field_tag :follow_id, @post.user.id %>
                     <%= submit_tag "Unfollow", class: "btn btn-secondary"%>
                   <% end %>
                 <% end %>
@@ -36,28 +36,34 @@
           </div>
     
           <div class="row border border-2">
-            <div class="">
-              <%= image_tag(@post.image, :width => 'auto', :height => '400', :class => 'rounded-3 ') %>
-            </div>
-              <div class="likes m-2">
-                <% if !liked?(@post) %>
-                  <%= form_tag like_post_path, method: :post do %>
-                    <%= hidden_field_tag :post_id, @post.id %>
-                    <%= submit_tag "Like", class: "btn btn-primary"%>
-                  <% end %>
-                <% else %>
-                  <%= form_tag unlike_post_path, method: :post do %>
-                    <%= hidden_field_tag :post_id, @post.id %>
-                    <%= submit_tag "Unlike", class: "btn btn-secondary"%>
-                  <% end %>
-                <% end %>
-                <h5><%= @post.likes.count %></h5>
+              <div class="col-1">
               </div>
+              <div class="col-10">
+                <%= image_tag(@post.image, :width => 'auto', :height => '400', :class => 'rounded-3 ') %>
+              </div>
+              <div class="col-1">
+              </div>
+              <div class="bg-dark">
+                <div class="likes m-2">
+                  <% if !liked?(@post) %>
+                    <%= form_tag like_post_path, method: :post do %>
+                      <%= hidden_field_tag :post_id, @post.id %>
+                      <%= submit_tag "Like", class: "btn btn-primary"%>
+                    <% end %>
+                  <% else %>
+                    <%= form_tag unlike_post_path, method: :post do %>
+                      <%= hidden_field_tag :post_id, @post.id %>
+                      <%= submit_tag "Unlike", class: "btn btn-secondary"%>
+                    <% end %>
+                  <% end %>
+                  <h5 class="text-light p-1"><%= @post.likes.count %></h5>
+                </div>
 
-            <div class="">
-              <%= simple_format @post.description %>
+              <div class="">
+                <%= simple_format @post.description, class: "text-light p-3" %>
+              </div>
+              <p class="text-light p-3"><%= time_ago_in_words @post.created_at %> ago </p>
             </div>
-            <p><%= time_ago_in_words @post.created_at %> ago </p>
           </div>
     
         </div> <br>

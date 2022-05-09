@@ -1,3 +1,4 @@
+<h3 class="m-2 p-2"><%= link_to @user.username, user_path(@user) %> followers: </h3>
 <% if !@followers.any?%>
     <h4>No followers</h4>
 <% else %>

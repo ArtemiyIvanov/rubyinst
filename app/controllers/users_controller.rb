@@ -24,7 +24,7 @@ class UsersController < ApplicationController
         @user = User.find(params[:follow_id])
         user_id = params[:follow_id]
         Follower.create(follower_id: current_user.id, following_id: user_id)
-        redirect_to @user
+        redirect_to user_path(@user)
     end
 
     def unfollow
@@ -32,7 +32,7 @@ class UsersController < ApplicationController
       user_id = params[:follow_id]
       follow = Follower.where(follower_id: current_user.id, following_id: user_id)
       follow.first.destroy
-      redirect_to @user
+      redirect_to user_path(@user)
     end
 
     def show_followers
@@ -55,8 +55,7 @@ class UsersController < ApplicationController
       @following = User.where(id: ids).order(created_at: :desc).page(params[:page]).per(5)
     end
 
-    def search
-      
+    def search 
         @users = User.where("username LIKE ?", "%" + params[:query] + "%").page(params[:page]).per(5)
     end
 

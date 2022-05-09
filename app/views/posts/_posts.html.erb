@@ -3,7 +3,7 @@
     <div class="col-8">
       <% posts.each do |post| %>
         <div class="post">
-          <div class="row border border-3">
+          <div class="row border border-3 bg-dark">
     
             <div class="col-2 p-2">
               <div class="avatar">
@@ -13,7 +13,7 @@
     
             <div class="col-10 ">
               <div class="">
-                <h4><%= link_to post.user.username, user_path(post.user), class: "text-dark p-3" %></h4>
+                <h4><%= link_to post.user.username, user_path(post.user), class: "text-light p-3" %></h4>
               </div>
 
               <% if !same_user?(post.user.id) %>
@@ -37,9 +37,14 @@
           </div>
     
           <div class="row border border-2">
-            <div class="">
+            <div class="col-1">
+            </div>
+            <div class="col-10">
               <%= link_to image_tag(post.image, :width => 'auto', :height => '400', :class => 'rounded-3 '), post_path(post) %>
             </div>
+            <div class="col-1">
+            </div>
+            <div class="bg-dark">
               <div class="likes m-2">
                 <% if !liked?(post) %>
                   <%= form_tag like_post_path, method: :post do %>
@@ -52,14 +57,15 @@
                     <%= submit_tag "Unlike", class: "btn btn-secondary"%>
                   <% end %>
                 <% end %>
-                <h5><%= post.likes.count%></h5>
+                <h5  class="text-light m-1 p-1"><%= post.likes.count %></h5>
               </div>
 
             <div class="">
-              <%= simple_format post.description %>
+              <%= simple_format post.description, class: "text-light p-3" %>
             </div>
-            <p><%= time_ago_in_words post.created_at %> ago </p>
+            <p class="text-light p-3"><%= time_ago_in_words post.created_at, class: "text-light p-3" %> ago </p>
           </div>
+        </div>
     
         </div> <br>
     

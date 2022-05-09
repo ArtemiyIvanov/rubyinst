@@ -1,4 +1,4 @@
-<div class="container">  
+<div class="container"> 
     <% users.each do |user| %>
       <div class="container">
         <div class="row mb-5">
@@ -12,10 +12,10 @@
                 <div class="basic-info">
                   <h2 class="username"><%= user.username %></h2>
                   <ul>
-                    <li class="profile-stats"><%= user.followers.count %> followers</li>
-                    <li class="profile-stats"><%= user.following.count %> following</li>
+                    <li class="profile-stats"><%= user.followers.count %> <%= link_to 'followers', followers_path(user) %></li>
+                    <li class="profile-stats"><%= user.following.count %> <%= link_to 'following', following_path(user) %></li>
                   </ul> <br>
-
+                  <% if !same_user?(user.id) %>
                     <% if !followed?(user.id) %>
                       <%= form_tag follow_user_path, method: :post do %>
                         <%= hidden_field_tag :follow_id, user.id %>
@@ -27,6 +27,7 @@
                         <%= submit_tag "Unfollow", class: "btn btn-dark"%>
                       <% end %>
                     <% end %>
+                  <% end %>
                 </div>   
 
                 <h4 class="name"><%= 'name: ' + user.first_name.to_s + ' ' + user.last_name.to_s %></h4>
